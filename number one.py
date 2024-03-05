@@ -31,3 +31,9 @@ name = input()
 for i in stud:
     if name in i.name:
         print(f"Ты получил: {i.mark}, за проект - {i.p_id}")
+
+f1 = open("student_new.csv", "w", encoding="UTF8")
+f1.write(a[0] + "\n")
+for i in stud:
+    f1.write(f"{i.id_},{i.name},{i.p_id},{i.cls},{i.mark}\n")
+f1.close()
