@@ -10,7 +10,7 @@
 
 '''
 import turtle as tt
-m = 10
+m = 20
 tt.screensize(2000, 2000)
 for i in range(2):
     tt.fd(5 * m)
@@ -34,7 +34,7 @@ for i in range(2):
 tt.up()
 tt.tracer(0)
 for x in range(-10, 30):
-    for y in range(-50, 10):
+    for y in range(-30, 10):
         tt.goto(x * m, y * m)
         tt.dot(3, 'blue')
 tt.done()
