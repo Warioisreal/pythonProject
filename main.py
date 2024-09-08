@@ -1,40 +1,41 @@
-'''
-Повтори 2 [Вперёд 5 Направо 90 Вперёд 7 Направо 90]
-Поднять хвост
-Назад 2 Направо 90 Вперёд 3 Налево 90
-Опустить хвост
-Повтори 2 [Вперёд 4 Направо 90 Вперёд 6 Направо 90]
-Выполняя этот алгоритм, Черепаха рисует одну за другой две фигуры.
-Определите, сколько точек с целочисленными координатами будут находиться внутри первой нарисованной фигуры,
-но не внутри второй. Точки на границах указанной области учитывать не следует.
+n = [int(i) for i in input()]
+k = int(input())
 
-'''
-import turtle as tt
-m = 10
-tt.screensize(2000, 2000)
-for i in range(2):
-    tt.fd(5 * m)
-    tt.rt(90)
-    tt.fd(7 * m)
-    tt.rt(90)
+result = []
 
-tt.up()
-tt.bk(2 * m)
-tt.rt(90)
-tt.fd(3 * m)
-tt.lt(90)
-tt.down()
+arr = [[] for i in range(10)]
+for i in range(len(n)):
+    arr[n[i]].append(i)
 
-for i in range(2):
-    tt.fd(4 * m)
-    tt.rt(90)
-    tt.fd(6 * m)
-    tt.rt(90)
+points = [0 for i in range(10)]
 
-tt.up()
-tt.tracer(0)
-for x in range(-10, 30):
-    for y in range(-50, 10):
-        tt.goto(x * m, y * m)
-        tt.dot(3, 'blue')
-tt.done()
+for i in range(len(n)):
+    a = n[i]
+    arr[a].append(i)
+
+pos = 0
+
+while k > 0:
+    for i in range(9, 0, -1):
+        if len(arr[i]) <= points[i]:  # указатель по цифре прошёл все адреса этой цифры -> переходим к следующей
+            continue
+
+        while arr[i][points[i]] < pos:  # дойти до ближайшего справа к указателю или до последнего адреса этой цифры
+            points[i] += 1
+            if points[i] >= len(arr[i]):
+                break
+
+        if len(arr[i]) <= points[i]:  # указатель по цифре прошёл все адреса этой цифры -> переходим к следующей
+            continue
+        # если после данного адреса >= k символов, то
+        # 1) добавляем эту цифру в результат
+        # 2) сдвигаем указатель на адрес + 1
+        # 3) уменьшаем необходимую длину
+        if len(n) - arr[i][points[i]] >= k:
+            result.append(i)
+            pos = arr[i][points[i]] + 1
+            k -= 1
+            break
+
+for i in result:
+    print(i, end="")
